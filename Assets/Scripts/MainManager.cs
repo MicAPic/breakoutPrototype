@@ -26,7 +26,7 @@ public class MainManager : MonoBehaviour
     {
         scoreManager = ScoreManager.Instance;
         scoreManager.LoadScore();
-        highScoreText.text = "High score : " + scoreManager.highScorePlayer + " : " + scoreManager.highScore;
+        highScoreText.text = "High score : " + scoreManager.playerName + " : " + scoreManager.highScore;
         
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
@@ -65,6 +65,10 @@ public class MainManager : MonoBehaviour
             {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
+            else if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("menu");
+            }
         }
     }
 
@@ -79,7 +83,7 @@ public class MainManager : MonoBehaviour
         m_GameOver = true;
         GameOverText.SetActive(true);
 
-        if (m_Points >= scoreManager.highScore)
+        if (m_Points > scoreManager.highScore)
         {
             scoreManager.SaveScore(m_Points);   
         }

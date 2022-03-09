@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager Instance;
     public string playerName = "AAA";
     public int highScore;
-    public string highScorePlayer = "AAA";
+    // public string highScorePlayer = "AAA";
     private void Awake()
     {
         if (Instance != null)
@@ -38,19 +38,24 @@ public class ScoreManager : MonoBehaviour
         };
 
         string json = JsonUtility.ToJson(data);
-        File.WriteAllText(Application.persistentDataPath + "/scores.json", json);
+        File.WriteAllText(Application.persistentDataPath + "/" + playerName + ".json", json);
     }
 
     public void LoadScore()
     {
-        string path = Application.persistentDataPath + "/scores.json";
+        string path = Application.persistentDataPath + "/" + playerName + ".json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            highScorePlayer = data.name;
+            playerName = data.name;
             highScore = data.score;
+        }
+        else
+        {
+            SaveScore(0);
+            highScore = 0;
         }
     }
 }

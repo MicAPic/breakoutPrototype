@@ -28,12 +28,13 @@ public class UIMainMenu : MonoBehaviour
 
     public void WriteName()
     {
+        nameInputField.text += new string('A', 3 - nameInputField.text.Length); 
         ScoreManager.Instance.playerName = nameInputField.text.ToUpper();
     }
 
-    public void GameStart()
+    public void SceneStart(string sceneName)
     {
-        SceneManager.LoadScene("main");
+        SceneManager.LoadScene(sceneName);
     }
 
     public void GameQuit()

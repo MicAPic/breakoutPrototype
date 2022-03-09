@@ -6,10 +6,12 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     private Rigidbody m_Rigidbody;
+    private ParticleSystem rippleEffect;
 
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
+        rippleEffect = gameObject.GetComponentInChildren<ParticleSystem>();
     }
     
     private void OnCollisionExit(Collision other)
@@ -32,5 +34,11 @@ public class Ball : MonoBehaviour
         }
 
         m_Rigidbody.velocity = velocity;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        //apply a ripple effect to the ball
+        rippleEffect.Play();
     }
 }
